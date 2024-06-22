@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissor Game</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        button {
+            font-size: 1.5rem;
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button#rock {
+            background: #e74c3c;
+        }
+        button#rock:hover {
+            background: #c0392b;
+        }
+        button#paper {
+            background: #3498db;
+        }
+        button#paper:hover {
+            background: #2980b9;
+        }
+        button#scissor {
+            background: #f1c40f;
+        }
+        button#scissor:hover {
+            background: #f39c12;
+        }
+        .choice {
+            font-size: 3rem;
+            margin: 20px;
+        }
+        .result {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 20px;
+        }
+        #game {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Rock Paper Scissor Game</h1>
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissor">Scissor</button>
+    <div id="game">
+        <p id="user-choice">You chose: <i class="fas fa-question"></i></p>
+        <p id="enemy-choice">Enemy chose: <i class="fas fa-question"></i></p>
+        <p id="result" class="result"></p>
+    </div>
+
+<script>
+
+const rock = document.getElementById('rock');
+const paper = document.getElementById('paper');
+const scissor = document.getElementById('scissor');
+const userChoiceElement = document.getElementById('user-choice');
+const enemyChoiceElement = document.getElementById('enemy-choice');
+const resultElement = document.getElementById('result');
+
+const choices = ['rock', 'paper', 'scissor'];
+const choiceIcons = {
+    rock: '<i class="fas fa-hand-rock"></i>',
+    paper: '<i class="fas fa-hand-paper"></i>',
+    scissor: '<i class="fas fa-hand-scissors"></i>'
+};
+
+rock.addEventListener('click', () => playRound('rock'));
+paper.addEventListener('click', () => playRound('paper'));
+scissor.addEventListener('click', () => playRound('scissor'));
+
+function playRound(userChoice) {
+    const enemyChoice = getEnemyChoice();
+    userChoiceElement.innerHTML = `You chose: ${choiceIcons[userChoice]}`;
+    enemyChoiceElement.innerHTML = `Enemy chose: ${choiceIcons[enemyChoice]}`;
+    resultElement.innerHTML = getResult(userChoice, enemyChoice);
+}
+
+function getEnemyChoice() {
+    return choices[Math.floor(Math.random() * choices.length)];
+}
+
+function getResult(userChoice, enemyChoice) {
+    if (userChoice === enemyChoice) {
+        return 'It\'s a tie!';
+    } else if ((userChoice === 'rock' && enemyChoice === 'scissor') ||
+               (userChoice === 'paper' && enemyChoice === 'rock') ||
+               (userChoice === 'scissor' && enemyChoice === 'paper')) {
+        return 'You win!';
+    } else {
+        return 'Enemy wins!';
+    }
+}
+
+</script>
+
+</body>
+</html>
